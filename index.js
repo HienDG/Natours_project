@@ -61,11 +61,10 @@ app.use(
 app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) => {
+  console.clear();
   req.requestTime = new Date().toISOString();
   next();
 });
-
-console.clear();
 
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);

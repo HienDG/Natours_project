@@ -34,10 +34,35 @@ const reviewSchema = mongoose.Schema(
   }
 );
 
+// reviewSchema.pre(/^find/, function (next) {
+//   this.select("-__v");
+//   next();
+// });
+
 reviewSchema.pre(/^find/, function (next) {
-  this.select("-__v");
+  // this.populate({
+  //   path: "tour",
+  //   select: "name",
+  // }).populate({
+  //   path: "user",
+  //   select: "name photo",
+  // });
+
+  this.populate({
+    path: "user",
+    select: "name photo",
+  });
+
   next();
 });
+
+// reviewSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: "user",
+//     select: "-__v -passwordConfirm",
+//   });
+//   next();
+// });
 
 const Review = mongoose.model("Review", reviewSchema);
 

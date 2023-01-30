@@ -71,7 +71,7 @@ userSchema.methods.correctPassword = async function (
 };
 
 userSchema.pre(/^find/, function (next) {
-  this.find({ active: { $ne: false }, role: { $ne: "admin" } });
+  this.find({ active: { $ne: false } });
   next();
 });
 
