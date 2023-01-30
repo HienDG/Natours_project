@@ -12,8 +12,14 @@ const tourSchema = new mongoose.Schema(
       required: [true, "A tour must have a name"],
       unique: true,
       trim: true,
-      maxlength: [40, "A tour name must have less or equal then 40 characters"],
-      minlength: [10, "A tour name must have more or equal then 10 characters"],
+      maxlength: [
+        40,
+        "A tour name must have less or equal then 40 characters",
+      ],
+      minlength: [
+        10,
+        "A tour name must have more or equal then 10 characters",
+      ],
       // validate: [validator.isAlpha, "Tour name must only contain characters"],
     },
     slug: String,
@@ -53,7 +59,8 @@ const tourSchema = new mongoose.Schema(
         validator: function (val) {
           return val < this.price;
         },
-        message: "Discount price ({VALUE}) should be below regular price",
+        message:
+          "Discount price ({VALUE}) should be below regular price",
       },
     },
     summary: {
@@ -115,6 +122,13 @@ const tourSchema = new mongoose.Schema(
 
 tourSchema.virtual("durationWeeks").get(function () {
   return this.duration / 7;
+});
+
+// Virtual populate
+tourSchema.virtual("reviews", {
+  ref: "Review",
+  foreignField: "tour",
+  localField: "_id",
 });
 
 // Doc middleware

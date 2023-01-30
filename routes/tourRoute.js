@@ -1,11 +1,27 @@
 const express = require("express");
+
 const tourController = require("../controllers/tourController");
 const authController = require("../controllers/authController");
+const reviewRouter = require("./reviewRoute");
+// const reviewController = require("../controllers/reviewController");
 
 const router = express.Router();
+// nested route
+//  POST /tours/:id/reviews
+//  GET /tours/:id/reviews
+//  GET /tours/:id/reviews/:id
+
+// router
+//   .route("/:tourId/reviews")
+//   .post(
+//     authController.protect,
+//     authController.restrictTo("user"),
+//     reviewController.createReview
+//   );
+
+router.use("/:tourId/reviews", reviewRouter);
 
 // router.param("id", tourController.checkId);
-
 router
   .route("/top-5-cheap")
   .get(tourController.aliasTopTours, tourController.getAllTours);
